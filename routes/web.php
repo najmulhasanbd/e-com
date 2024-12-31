@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\AdminController;
+use App\Http\Controllers\Backend\BrandController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -18,6 +19,9 @@ Route::middleware(['auth'])->group(function () {
 
 
 //admin controller
-Route::middleware(['auth', AuthAdmin::class])->group(function () {
-    Route::get('admin-dashboard', [AdminController::class, 'index'])->name('admin.index');
+Route::middleware(['auth', AuthAdmin::class])->prefix('admin')->group(function () {
+    Route::get('dashboard', [AdminController::class, 'index'])->name('admin.index');
+
+    //brand
+    Route::get('/brands',[BrandController::class,'index'])->name('brand');
 });
